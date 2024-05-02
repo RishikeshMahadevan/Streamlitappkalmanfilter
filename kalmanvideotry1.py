@@ -48,7 +48,7 @@ def kalman_filter(meas, x_prev, p_prev, F, H, Q, R):
     
     return x_curr, p_curr
 
-def calculate_portfolio(prices, EquityPrices):
+def calculate_portfolio(prices, EquityPrices, max_trade_amount, portfolio_value):
     # Initialize parameters
     F = 1
     H = 1
@@ -69,8 +69,8 @@ def calculate_portfolio(prices, EquityPrices):
     KPrice[0, :] = x_prev
     KCovPrice[0, :] = p_prev
 
-    initial_port = 1000000
-    tradevalue = 350000
+    initial_port = portfolio_value
+    tradevalue = max_trade_amount
     cashvalue = initial_port
     cash_shift = 250
 
@@ -91,10 +91,7 @@ def calculate_portfolio(prices, EquityPrices):
 
     cash = []
     signal = 0
-    #cash.append(cashvalue)
     diffvalues.append(0)
-    #port.append(initial_port)
-    #nstockslist.append(nstocks)
 
     for k in range(1, NTSteps):
         meas = prices[k, :]
@@ -203,6 +200,10 @@ def main():
     start_date = st.date_input('Enter start date', key='start_date_input', value=pd.to_datetime('2023-04-16'))
     end_date = st.date_input('Enter end date', key='end_date_input', value=pd.to_datetime('2024-04-15'))
     
+    # Get user input for maximum trade amount and portfolio value
+    max_trade_amount = st.number_input('Enter maximum trade amount', value=350000)
+    portfolio_value = st.number_input('Enter portfolio value', value=1000000)
+    
     submit_button = st.button('Submit')
     reset_button = st.button('Reset')
     
@@ -221,7 +222,7 @@ def main():
         prices = process_data(EquityPrices)
         
         # Calculate portfolio
-        obs_port, kalman_port, port, cash, nstockslist, buysignal, sellsignal = calculate_portfolio(prices, EquityPrices)
+        obs_port, kalman_port, port, cash, nstockslist, buysignal, sellsignal = calculate_portfolio(prices, EquityPrices, max_trade_amount, portfolio_value)
         
         st.session_state.obs_port = obs_port
         st.session_state.kalman_port = kalman_port
@@ -254,5 +255,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
