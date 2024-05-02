@@ -196,7 +196,7 @@ def plot_graphs(idx, obs_port, kalman_port, port, cash, nstockslist, buysignal, 
 
 
 def main():
-    st.title('Graph Playback App')
+    st.title('Hedged Portfolio trading with Kalman Filter')
     
     # Get user input for tickers, start date, and end date
     tickers_input = st.text_input('Enter tickers (comma-separated)', '^GSPC,^DJI')
