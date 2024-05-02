@@ -1,6 +1,6 @@
 pandas
 numpy
 yfinance
-matplotlib.pyplot
+matplotlib
 time
 streamlit
