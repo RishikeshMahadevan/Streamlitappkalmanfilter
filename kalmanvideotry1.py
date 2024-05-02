@@ -239,10 +239,10 @@ def main():
         # Add a slider to control the playback
         if 'idx' not in st.session_state:
             st.session_state.idx = 1
-        idx = st.slider('Select Index', min_value=1, max_value=len(st.session_state.obs_port), value=st.session_state.idx)
+        idx = st.slider('Select Day', min_value=1, max_value=len(st.session_state.obs_port), value=st.session_state.idx)
         
         # Add a "Next" button to increment the index by one
-        if st.button('Next'):
+        if st.button('Next Day'):
             st.session_state.idx += 1
             idx = min(st.session_state.idx, len(st.session_state.obs_port) - 1)
         
