@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import time
 import streamlit as st
 
-st.set_option('deprecation.showPyplotGlobalUse', 
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 def get_data(tickers, start_date, end_date):
     data_frames = []
