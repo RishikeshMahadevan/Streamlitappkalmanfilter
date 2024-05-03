@@ -5,14 +5,16 @@ import matplotlib.pyplot as plt
 import time
 import streamlit as st
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
-
+st.set_option('deprecation.showPyplotGlobalUse', 
 
 def get_data(tickers, start_date, end_date):
-    data = yf.download(tickers, start=start_date, end=end_date)['Adj Close']
-    data['^DJI'], data['^GSPC'] = data['^GSPC'], data['^DJI']
-    data.columns = [0, 1]
-    return data
+    data_frames = []
+    for ticker in tickers:
+        ticker_data = yf.download(ticker, start=start_date, end=end_date)['Adj Close']
+        data_frames.append(ticker_data)
+    merged_data = pd.concat(data_frames, axis=1)
+    merged_data.columns = [0, 1]
+    return merged_data
 
 
 
