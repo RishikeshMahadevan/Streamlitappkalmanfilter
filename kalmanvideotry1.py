@@ -198,7 +198,7 @@ def plot_graphs(idx, obs_port, kalman_port, port, cash, nstockslist, buysignal, 
     plt.legend()
 
     # Show the plot
-    st.pyplot()
+    st.pyplot(block=False)
 
 
 def main():
